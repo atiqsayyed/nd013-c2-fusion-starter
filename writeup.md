@@ -44,7 +44,7 @@ In the filter.py file, EKF is used.
 - The Kalman gain is computed and is used for updating the state and covariance.
 
 This is shown in the followin image
-![img1](images/kalman.png)
+![img1](images/kalman.PNG)
 
 The analysis of rmse with current time is shown in the below image (single tracking).
 
@@ -65,7 +65,7 @@ The following steps were taken for this:
 - If the score is below certain three-point and the state balance is greater than a threshold , then the track is not removed for further consideration.
 
 This is shown in the trackmanagement.py script:
-![img1](images/trackmanagement.png)
+![img1](images/trackmanagement.PNG)
 
 
 The following image shows the rmse plot for single tracking .
@@ -84,7 +84,7 @@ The following steps have been taken:
 - We choose the pair with the smallest Mahalanobis Distance, update Kalman Filter, and delete the relation matrix with the appropriate row and column.
 
 The following image shows the MHD being applied for getting the closest track measurement:
-![img1](images/closesttrack.png)
+![img1](images/closesttrack.PNG)
 
 The following graph is plotted.
 
@@ -103,7 +103,7 @@ The implementation consists of projection matrix which converts the points from 
 
 The implementation of ekf, track management, data association, and camera-lidar fusion are all well guided in the lectures. However it was difficult to implement the camera measuring model. When projecting a 3d point into a 2d point, there are transformations in the camera axis. However, the coding of the project was discovered and the problem was solved.For the project, a pre-computed result is needed. However, the pre-computed result files do not correspond to the load filename of the loop_over_dataset.py file. For using the files, we  modified the filenames according to the pre-computed result. This is shown in the following lines in the "loop_over_dataset.py " file.
 
-![image](images/measure_detection.png)
+![image](images/measure_detection.PNG)
 Fig: modified loop_over_dataset for pre-computed result
 
 ## Benefits in Camera-Lidar Fusion tracking over Lidar-only tracking
