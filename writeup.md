@@ -44,7 +44,7 @@ In the filter.py file, EKF is used.
 - Kalman gains are computed and used to update the states and covariances.
 
 This is shown in the followin image
-![img1](images/kalman.PNG)
+![img1](images/kalman.png)
 
 The analysis of rmse with current time is shown in the below image (single tracking).
 
@@ -60,11 +60,11 @@ The following steps were taken for this:
 
  Tracks are initially initialized with unassigned LIDAR calculations
 - If a track's score correlates with a measurement, the corresponding score is increased and vice versa
-- Tracks changing track conditions There is a ranking of
+- There is a track ranking which changes the conditions of the track.
 - If the score is below the specified 3 points and the health balance is above the threshold, the trace will not be removed for further consideration.
 
 This is shown in the trackmanagement.py script:
-![img1](images/trackmanagement.PNG)
+![img1](images/trackmanagement.png)
 
 
 The following image shows the rmse plot for single tracking .
@@ -83,7 +83,7 @@ The following steps have been performed:
 – Select the pair with the smallest Mahalanobis distance and update the Kalman filter to remove the corresponding row and column relation matrix.
 
 The following image shows the MHD being applied for getting the closest track measurement:
-![img1](images/closesttrack.PNG)
+![img1](images/closesttrack.png)
 
 The following graph is plotted.
 
@@ -102,7 +102,7 @@ Noise is also measured (R). If the tracking status is in his FOV (Field of View)
 
 The implementation of ekf, track management, data association, and camera-lidar fusion are all well guided in the lectures. However it was difficult to implement the camera measuring model. When projecting a 3d point into a 2d point, there are transformations in the camera axis. However, the coding of the project was discovered and the problem was solved.For the project, a pre-computed result is needed. However, the pre-computed result files do not correspond to the load filename of the loop_over_dataset.py file. For using the files, we  modified the filenames according to the pre-computed result. This is shown in the following lines in the "loop_over_dataset.py " file.
 
-![image](images/measure_detection.PNG)
+![image](images/measure_detection.png)
 Fig: modified loop_over_dataset for pre-computed result
 
 ## Benefits in Camera-Lidar Fusion tracking over Lidar-only tracking
@@ -114,7 +114,7 @@ From the project, it is understandable that for a stabilized tracking, sensor fu
 Sensor fusion systems can face various real-world problems, such as: For example:
 
 - Multiple traces and measurements for accurate correlation. Gating thresholds should be set appropriately to avoid unnecessary false correlations.
-- Insufficient measurement noise composition to provide accurate project results. In practice, rather than specifying a standardized noise variance for the sensor, it would be best if each measurement had its own noise variance. The variance of the individual noises gives better variance than the combined variance of the sensors.
+- measurement noise composition is not sufficient to provide accurate/precise project results. In practice, rather than specifying a standardized noise variance for the sensor, it would be best if each measurement had its own noise variance. The variance of the individual noises gives better variance than the combined variance of the sensors.
 
 This project solves the problem of extrinsic parameter tuning, a method of camera and
 LiDAR fusion. These extrinsic parameters are defined because this
