@@ -38,10 +38,10 @@ All training/inference is done on GTX 2060 in windows 10 machine.
 
 In the filter.py file, EKF is used.
 
-- We first design the system states [x, y, z, vx, vy, vz], process model, and constant velocity model.
-- Then we calculate the matrix (system matrix) for the 3D process models with constant velocity and noise covariances. This is required for computing state h(x) and Jacobian H
-- For current state calculation, h(x), and the Jacobian H function are evaluated.
-- The Kalman gain is computed and is used for updating the state and covariance.
+- First design the system states [x, y, z, vx, vy, vz], the process model, and the constant velocity model.
+- Next, compute the matrix of the 3D process model with constant covariance of velocity and noise (the system matrix). This is necessary for computing the state h(x) and the Jacobian H-function.
+- h(x) and the Jacobi H function are evaluated to compute the current state.
+- Kalman gains are computed and used to update the states and covariances.
 
 This is shown in the followin image
 ![img1](images/kalman.PNG)
@@ -53,16 +53,15 @@ The analysis of rmse with current time is shown in the below image (single track
 
 ## Step-2: Track Management
 
-The track management is analysed next, and the tracklist can handle several objects. One object is shown as a track in the device architecture.
-We transfer the track and measurement details to Kalman filter to update the particular worker on the track.
-
+Then track management is analyzed, track list can manage multiple objects. Objects are represented as tracks in the device architecture.
+Forward route and measurement details to the Kalman filter to update each worker on the route.
 
 The following steps were taken for this:
 
-- The track is first initialized with unassigned lidar calculation
-- If the scores on the track are correlated with measurement, then the corresponding scores will be increased and vice versa
-- There is a track ranking which changes the conditions of the track.
-- If the score is below certain three-point and the state balance is greater than a threshold , then the track is not removed for further consideration.
+ Tracks are initially initialized with unassigned LIDAR calculations
+- If a track's score correlates with a measurement, the corresponding score is increased and vice versa
+- Tracks changing track conditions There is a ranking of
+- If the score is below the specified 3 points and the health balance is above the threshold, the trace will not be removed for further consideration.
 
 This is shown in the trackmanagement.py script:
 ![img1](images/trackmanagement.PNG)
@@ -75,13 +74,13 @@ The following image shows the rmse plot for single tracking .
 
 ## Step-3: Data Association
 
-In this step, the closest neighbor association correctly matches several measurements to several tracks. In association.py, data association is introduced.
-The following steps have been taken:
+In this Step, nearest neighbor association correctly associates multiple measurements with multiple traces. Data associations are introduced in Association.py.
+The following steps have been performed:
 
-- We build  a matrix with all tracks and overviews open.
-- We calculate the distance of Mahalanobis Distance for each track measurement.
-- To exclude unlikely track pairs, use the hypothesis test Chi-Square.
-- We choose the pair with the smallest Mahalanobis Distance, update Kalman Filter, and delete the relation matrix with the appropriate row and column.
+- Creating matrix with all tracks and overview open.
+- Computes the distance from the Mahalanobis distance for each distance measure.
+- Use the chi-square hypothesis test to exclude unlikely segment pairs. 
+– Select the pair with the smallest Mahalanobis distance and update the Kalman filter to remove the corresponding row and column relation matrix.
 
 The following image shows the MHD being applied for getting the closest track measurement:
 ![img1](images/closesttrack.PNG)
@@ -93,9 +92,9 @@ The following graph is plotted.
 
 ## Step-4: Camera Sensor fusion
 
-Now we will be adding to the Kalman filter.The main assumption is the center of the 3d space bounding box for a car which is following the center of the 2d imagery of the vehicle. This assertion is approximately correct, however, for a front camera does not always be accurate.
-The implementation consists of projection matrix which converts the points from 3d space into 2d geometry in the picture . We use the partial derivatives (x,y,z) for measuring the the model in parameters (u,v). The noise is also measured (R).If the tracking status is in FOV(Field of View) then we can accept the measurement-track pair else we can reject it.
-
+Now add a Kalman filter. The main assumption is the center of his 3D spatial bounding box of the car, which follows the center of his 2D image of the car. However, the front camera is not always accurate, so this claim is mostly true.
+The implementation consists of a projection matrix that transforms a point from his 3D space to 2D geometry in the image. Measure the model in parameters (u,v) using the partial derivatives (x,y,z).
+Noise is also measured (R). If the tracking status is in his FOV (Field of View), he can accept the measurement track pair. Otherwise it can be rejected.
 
 ![step3_graph](images/rmse_tracking.png)
 
@@ -112,18 +111,19 @@ From the project, it is understandable that for a stabilized tracking, sensor fu
 
 ## Real-life challenges:
 
-A sensor-fusion systemcould be confronted with a variety of real-world issues such as :
+Sensor fusion systems can face various real-world problems, such as: For example:
 
-- Multiple tracks and measurements provide a precise correlation. The thresholds for gatting should be properly set to avoid un-necessary wrong correlations.
-- The measurement noise configuration is insufficient to provide a precise project result. In reality, rather than setting a standardized noise variance for a sensor, it's best if each measurement has its noise variance.Individual noise variances provide a better vaiation as compared to a combined variance on the sensor.
+- Multiple traces and measurements for accurate correlation. Gating thresholds should be set appropriately to avoid unnecessary false correlations.
+- Insufficient measurement noise composition to provide accurate project results. In practice, rather than specifying a standardized noise variance for the sensor, it would be best if each measurement had its own noise variance. The variance of the individual noises gives better variance than the combined variance of the sensors.
 
-This project eliminates the issue of extrinsic parameter tuning, which is one method for camera and 
-LiDAR fusion. These extrinsic parameters are defined since we are using a public dataset for this 
-experiment.
+This project solves the problem of extrinsic parameter tuning, a method of camera and
+LiDAR fusion. These extrinsic parameters are defined because this
+experiment uses a public dataset.
 
 ## Improvement opportunity:
 
-As already stated, the project should carry out the Camera-LiDAR Fusion Monitoring. And also, A 3D measuring model of the real camera sound can assist with the fusion effect, we can fit actual 3d points in the lidar point cloud to the vehicle target pixels.It is best suited to use a camera sound for providing individual noise variances and also for better projection matrix creation.
+As already mentioned, this project aims to do Camera-LiDAR Fusion Monitoring. Also, his 3D measurement model of the real camera sound can support fusion effects, matching the real his 3D points in the lidar point cloud to the vehicle target pixels. We recommend using camera sounds to provide individual noise variances and even better projection matrices.
+
 
 
 
