@@ -100,14 +100,16 @@ Noise is also measured (R). If the tracking status is in his FOV (Field of View)
 
 ## Difficulties Faced in Project
 
-The implementation of ekf, track management, data association, and camera-lidar fusion are all well guided in the lectures. However it was difficult to implement the camera measuring model. When projecting a 3d point into a 2d point, there are transformations in the camera axis. However, the coding of the project was discovered and the problem was solved.For the project, a pre-computed result is needed. However, the pre-computed result files do not correspond to the load filename of the loop_over_dataset.py file. For using the files, we  modified the filenames according to the pre-computed result. This is shown in the following lines in the "loop_over_dataset.py " file.
+The implementation of ekf, track management, data association and camera lidar fusion are covered in detail in the lectures. However, implementing the camera measurement model was difficult. When projecting a 3D point onto a 2D point, there is a transform on the camera axis. But the coding of the project was discovered and the problem was solved. Projects require pre-computed results.
+However, the precomputed results file does not correspond to the load filename in the loop_over_dataset.py file. To use the file, I renamed it according to the precomputed result. This is shown in the following line in the loop_over_dataset.py file.
 
 ![image](images/measure_detection.png)
 Fig: modified loop_over_dataset for pre-computed result
 
 ## Benefits in Camera-Lidar Fusion tracking over Lidar-only tracking
 
-From the project, it is understandable that for a stabilized tracking, sensor fusion should combine multiple sensors. Cameras may offer textured and color/brightness/contrast based imaages that Lidar does not provide .Lidar is extremely beneficial for low brightness /visibility or in blurry conditions such as foggy/rainy weather conditions.The most important aspect of Lidar is the spatial projection which is better than a camera.Lidar can seemlessly navigate to the required orientation. Ideally a combined approach of Resnet architectures combined with Lidar can provide better results. Inclusion of camera fusion trackign can produce a better geometric project matrix for the sensors to detect and operate on.
+From the project, it is understandable that sensor fusion needs to combine multiple sensors for stable tracking. Cameras can provide textured color/brightness/contrast-based images that lidar cannot. LIDAR is very useful in low light, poor visibility, or blurry conditions such as fog or rain. The most important aspect of lidar is that spatial projection is superior to cameras. Lidar can be seamlessly navigated to the desired alignment.
+Ideally, a combined Resnet architecture and lidar approach would yield better results. Camera fusion tracking recordings can generate a better geometric project matrix for the sensor to perceive and manipulate.
 
 ## Real-life challenges:
 
