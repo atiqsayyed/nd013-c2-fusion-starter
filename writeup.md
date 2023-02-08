@@ -1,18 +1,5 @@
 # Writeup: Track 3D-Objects Over Time
 
-Please use this starter template to answer the following questions:
-
-### 1. Write a short recap of the four tracking steps and what you implemented there (filter, track management, association, camera fusion). Which results did you achieve? Which part of the project was most difficult for you to complete, and why?
-
-
-### 2. Do you see any benefits in camera-lidar fusion compared to lidar-only tracking (in theory and in your concrete results)? 
-
-
-### 3. Which challenges will a sensor fusion system face in real-life scenarios? Did you see any of these challenges in the project?
-
-
-### 4. Can you think of ways to improve your tracking results in the future?
-
 
 # Self-Driving Car Beta Testing Nanodegree 
 
@@ -32,7 +19,7 @@ The project can be run by running
 ```
 python loop_over_dataset.py
 ```
-All training/inference is done on GTX 2060 in windows 10 machine.
+### 1. Write a short recap of the four tracking steps and what you implemented there (filter, track management, association, camera fusion). Which results did you achieve? Which part of the project was most difficult for you to complete, and why?
 
 ## Step-1: Extended Kalman Filter
 
@@ -98,7 +85,9 @@ Noise is also measured (R). If the tracking status is in his FOV (Field of View)
 
 ![step3_graph](images/rmse_tracking.png)
 
-## Difficulties Faced in Project
+
+
+
 
 The implementation of ekf, track management, data association and camera lidar fusion are covered in detail in the lectures. However, implementing the camera measurement model was difficult. When projecting a 3D point onto a 2D point, there is a transform on the camera axis. But the coding of the project was discovered and the problem was solved. Projects require pre-computed results.
 However, the precomputed results file does not correspond to the load filename in the loop_over_dataset.py file. To use the file, I renamed it according to the precomputed result. This is shown in the following line in the loop_over_dataset.py file.
@@ -106,12 +95,14 @@ However, the precomputed results file does not correspond to the load filename i
 ![image](images/measure_detection.png)
 Fig: modified loop_over_dataset for pre-computed result
 
-## Benefits in Camera-Lidar Fusion tracking over Lidar-only tracking
+### 2. Do you see any benefits in camera-lidar fusion compared to lidar-only tracking (in theory and in your concrete results)?
 
 From the project, it is understandable that sensor fusion needs to combine multiple sensors for stable tracking. Cameras can provide textured color/brightness/contrast-based images that lidar cannot. LIDAR is very useful in low light, poor visibility, or blurry conditions such as fog or rain. The most important aspect of lidar is that spatial projection is superior to cameras. Lidar can be seamlessly navigated to the desired alignment.
 Ideally, a combined Resnet architecture and lidar approach would yield better results. Camera fusion tracking recordings can generate a better geometric project matrix for the sensor to perceive and manipulate.
 
-## Real-life challenges:
+
+
+### 3. Which challenges will a sensor fusion system face in real-life scenarios? Did you see any of these challenges in the project?
 
 Sensor fusion systems can face various real-world problems, such as: For example:
 
@@ -122,7 +113,8 @@ This project solves the problem of extrinsic parameter tuning, a method of camer
 LiDAR fusion. These extrinsic parameters are defined because this
 experiment uses a public dataset.
 
-## Improvement opportunity:
+
+### 4. Can you think of ways to improve your tracking results in the future?
 
 As already mentioned, this project aims to do Camera-LiDAR Fusion Monitoring. Also, his 3D measurement model of the real camera sound can support fusion effects, matching the real his 3D points in the lidar point cloud to the vehicle target pixels. We recommend using camera sounds to provide individual noise variances and even better projection matrices.
 
